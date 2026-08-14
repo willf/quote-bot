@@ -37,6 +37,7 @@ class BotConfig:
     max_graphemes: int = 300
     number_threads: bool = True
     attribution_template: str = "— {attribution}"
+    hashtags: tuple[str, ...] = ()
     interval_days: int = 1
     offset: int = 0
     epoch: str = "2025-01-01"
@@ -48,4 +49,3 @@ class PostRef:
 
     uri: str
     cid: str
-

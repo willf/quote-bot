@@ -9,11 +9,32 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import Any
 
+import regex
+
 from quote_bot.models import PostRef
 
 
 class BlueskyError(RuntimeError):
     """An AT Protocol request failed."""
+
+
+def tag_facets(text: str) -> list[dict[str, Any]]:
+    """Return Bluesky facets for hashtags using UTF-8 byte offsets."""
+    facets: list[dict[str, Any]] = []
+    for match in regex.finditer(r"(?<![\p{L}\p{N}_])#([\p{L}\p{N}_-]{1,64})", text):
+        start, end = match.span()
+        facets.append(
+            {
+                "index": {
+                    "byteStart": len(text[:start].encode("utf-8")),
+                    "byteEnd": len(text[:end].encode("utf-8")),
+                },
+                "features": [
+                    {"$type": "app.bsky.richtext.facet#tag", "tag": match.group(1)}
+                ],
+            }
+        )
+    return facets
 
 
 @dataclass
@@ -73,6 +94,9 @@ class BlueskyClient:
         }
         if language:
             record["langs"] = [language]
+        facets = tag_facets(text)
+        if facets:
+            record["facets"] = facets
         if root and parent:
             record["reply"] = {
                 "root": {"uri": root.uri, "cid": root.cid},

@@ -4,16 +4,19 @@ quotes = "data/pascal.jsonl"
 handle_env = "PASCAL_BSKY_HANDLE"
 password_env = "PASCAL_BSKY_APP_PASSWORD"
 language = "en"
+epoch = "2026-08-14"
 interval_days = 1
 offset = 0
 attribution_template = "— Pascal, Pensées ({attribution})"
+hashtags = ["Pensees"]
 
 [bots.julian]
 quotes = "data/julian.jsonl"
 handle_env = "JULIAN_BSKY_HANDLE"
 password_env = "JULIAN_BSKY_APP_PASSWORD"
 language = "en"
+epoch = "2026-08-14"
 interval_days = 1
 offset = 0
 attribution_template = "— Julian of Norwich, Revelations of Divine Love ({attribution})"
-
+hashtags = ["Shewings"]

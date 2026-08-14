@@ -3,7 +3,7 @@ name: Post scheduled quotes
 on:
   schedule:
     # GitHub Actions cron is UTC. Change this expression to choose another time.
-    - cron: "17 13 * * *"
+    - cron: "0 6 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -36,4 +36,3 @@ jobs:
         run: >-
           quote-bot --config bots.toml --all
           ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '--dry-run' || '' }}
-

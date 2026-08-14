@@ -5,6 +5,8 @@ from __future__ import annotations
 import tomllib
 from pathlib import Path
 
+import regex
+
 from quote_bot.models import BotConfig
 
 
@@ -39,6 +41,7 @@ def load_config(path: Path) -> dict[str, BotConfig]:
             max_graphemes=int(values.get("max_graphemes", 300)),
             number_threads=bool(values.get("number_threads", True)),
             attribution_template=str(values.get("attribution_template", "— {attribution}")),
+            hashtags=tuple(str(tag).removeprefix("#") for tag in values.get("hashtags", ())),
             interval_days=int(values.get("interval_days", 1)),
             offset=int(values.get("offset", 0)),
             epoch=str(values.get("epoch", "2025-01-01")),
@@ -47,6 +50,9 @@ def load_config(path: Path) -> dict[str, BotConfig]:
             raise ValueError(f"bots.{name}.max_graphemes must be at least 20")
         if bot.interval_days < 1:
             raise ValueError(f"bots.{name}.interval_days must be at least 1")
+        if any(not regex.fullmatch(r"[\p{L}\p{N}_-]{1,64}", tag) for tag in bot.hashtags):
+            raise ValueError(
+                f"bots.{name}.hashtags must contain 1–64 letters, numbers, underscores, or hyphens"
+            )
         bots[name] = bot
     return bots
-

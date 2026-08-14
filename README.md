@@ -14,7 +14,9 @@ only examples of the input format, not publication-ready transcriptions.
    and offset: `(days since epoch / interval + offset) modulo quote count`.
 3. A long `text` entry is split on paragraph, sentence, or word boundaries.
    An entry with `parts` preserves editorially chosen thread breaks.
-4. The first post becomes the thread root. Every later post replies to the
+4. Configured hashtags are appended to the final post and encoded as Bluesky
+   rich-text facets, making them clickable and searchable.
+5. The first post becomes the thread root. Every later post replies to the
    preceding post while retaining the same root reference.
 
 Selection is deterministic and stateless. Reordering or inserting JSONL rows
@@ -74,13 +76,16 @@ language = "en"
 max_graphemes = 300
 number_threads = true
 attribution_template = "— Pascal, Pensées ({attribution})"
+hashtags = ["PascalsPensees"]
 epoch = "2025-01-01"
 interval_days = 1
 offset = 0
 ```
 
 Paths are relative to `bots.toml`. Template fields are `{attribution}`,
-`{source}`, and `{id}`. Set `interval_days = 7` for a weekly bot while keeping
+`{source}`, and `{id}`. Hashtags may be written with or without the leading
+`#`; they are placed only on the final post of a thread. Set
+`interval_days = 7` for a weekly bot while keeping
 the workflow daily; on other days the command reports that the bot is not due.
 The cron expression controls the time of day and can also be changed to run the
 workflow less frequently.
@@ -129,12 +134,11 @@ pytest --cov --cov-report=term-missing
 - Thread creation is not transactional. If Bluesky accepts some replies and a
   later request fails, the partial thread remains. Inspect the account before
   retrying to avoid a duplicate.
-- Plain quote text is posted without rich-text facets. URLs remain visible but
-  are not decorated by this minimal client.
+- Configured hashtags and hashtag text appearing in quotations receive tag
+  facets. URLs and mentions remain plain text in this minimal client.
 - Source texts and editions may carry copyright or attribution requirements.
   Verify the edition you ingest before publication.
 
 ## License
 
 [MIT](LICENSE)
-

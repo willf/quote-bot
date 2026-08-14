@@ -24,6 +24,16 @@ def test_short_quote_with_attribution_is_one_post() -> None:
     assert format_thread(quote, bot()) == ["A short thought.\n\n— Book 1"]
 
 
+def test_hashtags_are_added_to_final_post_and_count_toward_limit() -> None:
+    quote = Quote(id="one", parts=("First post.", "Last post."))
+
+    posts = format_thread(quote, bot(hashtags=("DailyQuote", "Wisdom")))
+
+    assert "#DailyQuote" not in posts[0]
+    assert "#DailyQuote #Wisdom" in posts[-1]
+    assert all(grapheme_len(post) <= 50 for post in posts)
+
+
 def test_long_quote_splits_and_numbers_within_limit() -> None:
     quote = Quote(
         id="long",

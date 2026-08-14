@@ -55,6 +55,9 @@ def format_thread(quote: Quote, bot: BotConfig) -> list[str]:
             attribution=attribution, source=quote.source or "", id=quote.id
         )
         parts[-1] = f"{parts[-1].rstrip()}\n\n{rendered}"
+    if bot.hashtags:
+        tags = " ".join(f"#{tag}" for tag in bot.hashtags)
+        parts[-1] = f"{parts[-1].rstrip()}\n\n{tags}"
 
     total_guess = 1
     while True:
