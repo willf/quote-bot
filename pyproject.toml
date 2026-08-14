@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bluesky-quote-bots"
+version = "0.1.0"
+description = "Run configurable, JSONL-backed quote bots on Bluesky."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "Quote Bot contributors" }]
+dependencies = ["regex>=2024.5.15"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.2", "pytest-cov>=5.0", "ruff>=0.6"]
+
+[project.scripts]
+quote-bot = "quote_bot.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/quote_bot"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers --strict-config"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["quote_bot"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 90
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+

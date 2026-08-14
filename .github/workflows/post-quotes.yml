@@ -1,0 +1,39 @@
+name: Post scheduled quotes
+
+on:
+  schedule:
+    # GitHub Actions cron is UTC. Change this expression to choose another time.
+    - cron: "17 13 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Preview without posting
+        type: boolean
+        default: true
+
+concurrency:
+  group: quote-bots-daily
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install .
+      - name: Post due quotes
+        env:
+          PASCAL_BSKY_HANDLE: ${{ secrets.PASCAL_BSKY_HANDLE }}
+          PASCAL_BSKY_APP_PASSWORD: ${{ secrets.PASCAL_BSKY_APP_PASSWORD }}
+          JULIAN_BSKY_HANDLE: ${{ secrets.JULIAN_BSKY_HANDLE }}
+          JULIAN_BSKY_APP_PASSWORD: ${{ secrets.JULIAN_BSKY_APP_PASSWORD }}
+        run: >-
+          quote-bot --config bots.toml --all
+          ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '--dry-run' || '' }}
+

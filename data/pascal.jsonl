@@ -1,0 +1,3 @@
+{"id":"pascal-mock-001","text":"Mock quotation for development. The heart has its reasons, which reason does not know.","source":"fragment 277 (placeholder numbering)","metadata":{"status":"mock","edition":"replace before launch"}}
+{"id":"pascal-mock-002","parts":["Mock long quotation, part one. Explicit parts preserve an editor's preferred thread breaks.","Mock long quotation, part two. Any individual part that is still too long will also be split automatically."],"source":"mock source","metadata":{"status":"mock"}}
+
