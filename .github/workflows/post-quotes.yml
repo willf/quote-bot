@@ -29,9 +29,9 @@ jobs:
       - run: python -m pip install .
       - name: Post due quotes
         env:
-          PASCAL_BSKY_HANDLE: ${{ secrets.PASCAL_BSKY_HANDLE }}
+          PASCAL_BSKY_HANDLE: ${{ vars.PASCAL_BSKY_HANDLE }}
           PASCAL_BSKY_APP_PASSWORD: ${{ secrets.PASCAL_BSKY_APP_PASSWORD }}
-          JULIAN_BSKY_HANDLE: ${{ secrets.JULIAN_BSKY_HANDLE }}
+          JULIAN_BSKY_HANDLE: ${{ vars.JULIAN_BSKY_HANDLE }}
           JULIAN_BSKY_APP_PASSWORD: ${{ secrets.JULIAN_BSKY_APP_PASSWORD }}
         run: >-
           quote-bot --config bots.toml --all
