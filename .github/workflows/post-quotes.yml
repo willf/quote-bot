@@ -35,5 +35,5 @@ jobs:
           JULIAN_BSKY_HANDLE: ${{ vars.JULIAN_BSKY_HANDLE }}
           JULIAN_BSKY_APP_PASSWORD: ${{ secrets.JULIAN_BSKY_APP_PASSWORD }}
         run: >-
-          quote-bot --config bots.toml --all
+          quote-bot --config onebot.toml --all
           ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '--dry-run' || '' }}
