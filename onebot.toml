@@ -1,10 +1,10 @@
-[bots.pascal]
-quotes = "data/pascal.jsonl"
-handle_env = "PASCAL_BSKY_HANDLE"
-password_env = "PASCAL_BSKY_APP_PASSWORD"
+[bots.perlis]
+quotes = "data/perlis.jsonl"
+handle_env = "PERLIS_BSKY_HANDLE"
+password_env = "PERLIS_BSKY_APP_PASSWORD"
 language = "en"
-epoch = "2026-08-14"
+epoch = "2026-09-03"
 interval_days = 1
 offset = 0
-attribution_template = "— Pascal, Pensées ({attribution})"
-hashtags = ["Pensees"]
+attribution_template = "— Alan Perlis, Programming Pearls ({attribution})"
+hashtags = ["programming", "pearls"]

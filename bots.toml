@@ -20,3 +20,14 @@ interval_days = 1
 offset = 0
 attribution_template = "— Julian of Norwich, Revelations of Divine Love ({attribution})"
 hashtags = ["Shewings"]
+
+[bots.perlis]
+quotes = "data/perlis.jsonl"
+handle_env = "PERLIS_BSKY_HANDLE"
+password_env = "PERLIS_BSKY_APP_PASSWORD"
+language = "en"
+epoch = "2026-09-03"
+interval_days = 1
+offset = 0
+attribution_template = "— Alan Perlis, Programming Pearls ({attribution})"
+hashtags = ["programming", "pearls"]
