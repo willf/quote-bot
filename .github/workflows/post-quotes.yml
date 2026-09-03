@@ -37,5 +37,5 @@ jobs:
           PERLIS_BSKY_HANDLE: ${{ vars.PERLIS_BSKY_HANDLE }}
           PERLIS_BSKY_APP_PASSWORD: ${{ secrets.PERLIS_BSKY_APP_PASSWORD }}
         run: >-
-          quote-bot --config onebot.toml --all
+          quote-bot --config bots.toml --all
           ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '--dry-run' || '' }}
