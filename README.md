@@ -1,5 +1,7 @@
 # Bluesky Quote Bots
 
+[![Post scheduled quotes](https://github.com/willf/quote-bot/actions/workflows/post-quotes.yml/badge.svg)](https://github.com/willf/quote-bot/actions/workflows/post-quotes.yml)
+
 A small Python system for running any number of JSONL-backed quote bots from
 GitHub Actions. Long quotations become properly linked Bluesky threads, and the
 same date always selects the same quote, so no database or cron host is needed.
